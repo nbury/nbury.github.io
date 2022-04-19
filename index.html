@@ -1,0 +1,162 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.1/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="content" class="content">
+        <!-- Modal -->
+
+        <div id="cardPile">
+            <div id="element_1">Card 1</div>
+            <div id="element_2">Card 2</div>
+            <div id="element_3">Card 3</div>
+            <div id="element_4">Card 4</div>
+            <div id="element_5">Card 5</div>
+            <div id="element_6">Card 6</div>
+        </div>
+        <div id="cardSlots">
+            <div id="slot_1">Slot 1</div>
+            <div id="slot_4">Slot 4</div>
+            <div id="slot_2">Slot 2</div>
+            <div id="slot_6">Slot 6</div>
+            <div id="slot_3">Slot 3</div>
+            <div id="slot_5">Slot 5</div>
+        </div>
+    </div>
+
+
+    <!--Modal-->
+    <div class="modal fade" id="textModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="text-align:center">Great Work!</h4>
+
+                </div>
+                <div class="modal-body">Everything was matched :)</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <a
+                        href="www.google.com"><button type="button" class="btn btn-primary">Next</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // JavaScript Document
+    $('#element_1').data('number', 1).attr('id', 'card' + 1).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+    $('#element_2').data('number', 2).attr('id', 'card' + 2).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+    $('#element_3').data('number', 3).attr('id', 'card' + 3).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+    $('#element_4').data('number', 4).attr('id', 'card' + 4).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+    $('#element_5').data('number', 5).attr('id', 'card' + 5).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+    $('#element_6').data('number', 6).attr('id', 'card' + 6).draggable({
+        containment: '#content',
+        stack: '#cardPile div',
+        cursor: 'pointer',
+        revert: true
+    });
+
+
+    $('#slot_1').data('number', 1).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    $('#slot_2').data('number', 2).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    $('#slot_3').data('number', 3).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    $('#slot_4').data('number', 4).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    $('#slot_5').data('number', 5).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    $('#slot_6').data('number', 6).droppable({
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+    });
+
+    var totalCards = $('#cardPile').children().length;
+    console.log(totalCards);
+    var totalMatches = 0;
+    console.log(totalMatches);
+
+    function handleCardDrop(event, ui) {
+        var slotNumber = $(this).data('number');
+        var cardNumber = ui.draggable.data('number');
+
+        if (slotNumber == cardNumber) {
+            totalMatches++;
+            console.log("totalMatches = " + totalMatches);
+            ui.draggable.addClass('correct');
+            ui.draggable.draggable('disable');
+            $(this).droppable('disable');
+            ui.draggable.position({ of: $(this), my: 'left top', at: 'left top' });
+            ui.draggable.draggable('option', 'revert', false);
+        }
+
+        if (totalMatches == totalCards) {
+            console.log("show the modal!");
+            $('#textModal').modal('show');
+        }
+    }
+
+
+
+
+
+
+
+</script>
